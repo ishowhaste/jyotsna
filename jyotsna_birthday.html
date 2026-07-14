@@ -1234,17 +1234,32 @@
     <div class="lock-container">
       <!-- Left side: Keypad and input display -->
       <div class="lock-left">
-        <h3 class="lock-section-title" id="lock-title">Locked until August 1st!</h3>
+        <h3 class="lock-section-title" id="lock-title">Enter Passcode</h3>
 
-        <div id="countdown-display"
-          style="font-size: 3rem; font-weight: 700; margin: 30px 0; color: var(--rose-deep); text-shadow: 0 4px 10px rgba(0,0,0,0.1); letter-spacing: 2px; text-align: center;">
-          --:--:--
+        <div class="passcode-boxes">
+          <div class="box" id="box-0"></div>
+          <div class="box" id="box-1"></div>
+          <div class="box" id="box-2"></div>
+          <div class="box" id="box-3"></div>
         </div>
 
-        <button class="action-btn" id="time-unlock-btn" onclick="timeUnlock()"
-          style="display: none; width: 100%; margin-top: 20px; font-size: 1.5rem; justify-content: center;">Unlock</button>
-        <p class="hint-text" id="lock-hint" style="text-align: center;">Come back on August 1st at 12 AM for a surprise!
-          🎂</p>
+        <div class="keypad-grid">
+          <button class="key-btn" onclick="pressKey('1')">1</button>
+          <button class="key-btn" onclick="pressKey('2')">2</button>
+          <button class="key-btn" onclick="pressKey('3')">3</button>
+          <button class="key-btn" onclick="pressKey('4')">4</button>
+          <button class="key-btn" onclick="pressKey('5')">5</button>
+          <button class="key-btn" onclick="pressKey('6')">6</button>
+          <button class="key-btn" onclick="pressKey('7')">7</button>
+          <button class="key-btn" onclick="pressKey('8')">8</button>
+          <button class="key-btn" onclick="pressKey('9')">9</button>
+          <button class="key-btn backspace-star" onclick="pressKey('clear')">*</button>
+          <button class="key-btn" onclick="pressKey('0')">0</button>
+          <button class="key-btn backspace-star" onclick="pressKey('back')">#</button>
+        </div>
+
+        <button class="lock-enter-btn" onclick="verifyPIN()">Enter</button>
+        <p class="hint-text" id="lock-hint">Hint: 01-08 (Your special day! 🎂)</p>
       </div>
 
       <!-- Right side: Polaroid image frame -->
@@ -1544,57 +1559,48 @@
     }
 
 
-    // ── TIME BASED LOCK SCREEN LOGIC ──
-    const targetTime = new Date('2026-08-01T00:00:00').getTime();
+    // ── PASSCODE LOGIC ──
+    let inputPIN = '';
+    const CORRECT_PIN = '0108'; // Update this if needed (e.g. 0306)
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetTime - now;
-
-      const display = document.getElementById('countdown-display');
-      const btn = document.getElementById('time-unlock-btn');
-      const hint = document.getElementById('lock-hint');
-      const title = document.getElementById('lock-title');
-
-      if (!display) return;
-
-      if (distance <= 0) {
-        display.style.display = 'none';
-        if (title) title.textContent = 'Happy Birthday! 🎉';
-        if (hint) hint.textContent = 'The wait is over! Click Unlock to begin.';
-        if (btn) btn.style.display = 'block';
+    function pressKey(key) {
+      if (key === 'clear') {
+        inputPIN = '';
+      } else if (key === 'back') {
+        inputPIN = inputPIN.slice(0, -1);
       } else {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        const dStr = days > 0 ? `${days}d ` : '';
-        const hStr = hours.toString().padStart(2, '0');
-        const mStr = minutes.toString().padStart(2, '0');
-        const sStr = seconds.toString().padStart(2, '0');
-
-        display.textContent = `${dStr}${hStr}:${mStr}:${sStr}`;
+        if (inputPIN.length < 4) {
+          inputPIN += key;
+        }
       }
+      updateDots();
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    function verifyPIN() {
+      const hint = document.getElementById('lock-hint');
+      if (inputPIN === CORRECT_PIN || inputPIN === '0306') {
+        getAudioContext(); // Initialize context on user interaction
+        hint.textContent = "Unlocking...";
+        hint.classList.remove('error');
+        hint.style.color = '#7ec8a0';
 
-    function timeUnlock() {
-      getAudioContext(); // Initialize context on user interaction
-      // Success transition
-      setTimeout(() => {
-        document.getElementById('story-shared-bg').classList.add('active');
-        document.getElementById('story-1-ask').classList.add('active');
-        document.getElementById('lock-page').classList.add('unlocking');
-
-        // Wait for slide up transition before complete display hide
         setTimeout(() => {
-          document.getElementById('lock-page').classList.remove('active');
-          document.getElementById('lock-page').classList.remove('unlocking');
-        }, 800);
-      }, 200);
+          document.getElementById('story-shared-bg').classList.add('active');
+          document.getElementById('story-1-ask').classList.add('active');
+          document.getElementById('lock-page').classList.add('unlocking');
+
+          setTimeout(() => {
+            document.getElementById('lock-page').classList.remove('active');
+            document.getElementById('lock-page').classList.remove('unlocking');
+          }, 800);
+        }, 500);
+      } else {
+        hint.textContent = "Incorrect Passcode. Try again!";
+        hint.classList.add('error');
+        inputPIN = '';
+        updateDots();
+        setTimeout(() => hint.classList.remove('error'), 500);
+      }
     }
 
     function hideAllStoryPages() {
