@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Happy Birthday Jyotsna! 🎂</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    :root {
+      --rose: #e8527a;
+      --rose-light: #f9d0dc;
+      --rose-deep: #c0395f;
+      --gold: #f5c842;
+      --lavender: #c9a0dc;
+      --cream: #fff9f5;
+      --text-dark: #4a2040;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+    }
+
+    body {
+      font-family: "Quicksand", "Outfit", sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text-dark);
+    }
+
+    /* BACKGROUND ANIMATIONS */
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-float {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.15;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.95;
+        transform: scale(1.6);
+      }
+    }
+
+    /* SCREEN MANAGEMENT */
+    .pg {
+      display: none;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pg.active {
+      display: block;
+    }
+
+    /* STORY PAGES CSS */
+    #story-shared-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 499;
+      background-color: #fce4ec;
+      background-image: url('./images/894e179ca9e914ca95a31a729e7f1802.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: none;
+    }
+
+    #story-shared-bg.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .story-page {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .story-page.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .story-img {
+      max-width: 250px;
+      max-height: 250px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      animation: bobBalloon 2s infinite alternate;
+    }
+
+    .story-title {
+      font-family: "Great Vibes", cursive;
+      font-size: 3rem;
+      color: var(--rose-deep);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 0px #fff;
+    }
+
+    .story-text {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 25px;
+      font-weight: 600;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+
+    .story-btn {
+      background: linear-gradient(135deg, #ff8fab, #e8527a);
+      color: #fff;
+      font-weight: bold;
+      font-family: "Quicksand", sans-serif;
+      font-size: 1.2rem;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 5px 10px;
+      box-shadow: 0 5px 15px rgba(232, 82, 122, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .story-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .story-btn.story-btn-outline {
+      background: transparent;
+      border: 2px solid #e8527a;
+      color: #e8527a;
+      box-shadow: none;
+    }
+
+    .envelope-box {
+      font-size: 6rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+      margin-bottom: 20px;
+    }
+
+    .envelope-box:hover {
+      transform: scale(1.1);
+    }
+
+    .polaroids-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .story-polaroid {
+      background: #fff;
+      padding: 10px 10px 25px 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      width: 130px;
+      transform: rotate(-5deg);
+      border: 1px solid #ddd;
+    }
+
+    .story-polaroid:nth-child(2) {
+      transform: rotate(3deg);
+    }
+
+    .story-polaroid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    .gift-box {
+      font-size: 8rem;
+      cursor: pointer;
+      animation: shake 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    /* 1. LOCK SCREEN (PASSCODE) */
+    #lock-page {
+      background: radial-gradient(circle, #a62435 0%, #610d18 100%);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+    }
+
+    #lock-page.active {
+      display: flex;
+    }
+
+    #lock-page.unlocking {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    #lock-bg-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .lock-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-radius: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 680px;
+      gap: 40px;
+      animation: lockPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes lockPop {
+      from {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .lock-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .lock-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 240px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .lock-section-title {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 15px;
+      font-weight: 500;
+      font-family: "Outfit", sans-serif;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Passcode display boxes (stars instead of dots) */
+    .passcode-boxes {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .passcode-boxes .box {
+      width: 38px;
+      height: 38px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ff8fab;
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .passcode-boxes .box.filled {
+      border-color: #ff8fab;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 10px rgba(255, 143, 171, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .keypad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    .key-btn {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .key-btn:active {
+      background: #ff8fab;
+      border-color: #ff8fab;
+      color: #fff;
+      transform: scale(0.9);
+      box-shadow: 0 0 15px #ff8fab;
+    }
+
+    .key-btn.backspace-star {
+      font-size: 1.1rem;
+      color: var(--rose-light);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .lock-enter-btn {
+      width: 100%;
+      max-width: 160px;
+      margin-top: 15px;
+      background: linear-gradient(135deg, #ff8fab, #e8527a);
+      color: #fff;
+      font-family: "Quicksand", sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 8px 24px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(232, 82, 122, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .lock-enter-btn:hover {
+      transform: scale(1.03) translateY(-1px);
+      box-shadow: 0 10px 20px rgba(232, 82, 122, 0.5);
+    }
+
+    .lock-enter-btn:active {
+      transform: scale(0.97) translateY(0);
+    }
+
+    .hint-text {
+      margin-top: 15px;
+      font-size: 0.8rem;
+      color: var(--rose-light);
+      opacity: 0.8;
+      transition: color 0.3s;
+    }
+
+    .hint-text.error {
+      color: #ff4a4a;
+      animation: shake 0.4s ease;
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-8px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(8px);
+      }
+    }
+
+    /* Polaroid card styles */
+    .polaroid-frame {
+      position: relative;
+      background: #ffffff;
+      padding: 12px 12px 30px 12px;
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transform: rotate(3deg);
+      width: 220px;
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+
+    .polaroid-photo-container {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      background: #eee;
+    }
+
+    .polaroid-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .polaroid-text {
+      font-family: "Great Vibes", cursive;
+      font-size: 1.8rem;
+      color: #333;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .bow-sticker {
+      position: absolute;
+      top: -18px;
+      left: -15px;
+      font-size: 2.2rem;
+      z-index: 10;
+      transform: rotate(-15deg);
+    }
+
+    /* Media query to make it responsive on mobile */
+    @media (max-width: 680px) {
+      .lock-container {
+        flex-direction: column;
+        width: 95%;
+        padding: 10px;
+        gap: 20px;
+      }
+
+      .lock-left,
+      .lock-right {
+        width: 100%;
+        min-width: unset;
+      }
+
+      .polaroid-frame {
+        width: 180px;
+        padding-bottom: 20px;
+      }
+
+      .polaroid-text {
+        font-size: 1.5rem;
+        margin-top: 8px;
+      }
+
+      .lock-section-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+    }
+
+
+    /* 2. BIRTHDAY GREETING PAGE */
+    #birthday-page {
+      background: linear-gradient(135deg, #fff2f6 0%, #f7e6f9 100%);
+      padding-bottom: 80px;
+    }
+
+    .top-marquee {
+      background: linear-gradient(90deg, var(--rose-deep), var(--rose));
+      color: #fff;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(232, 82, 122, 0.2);
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marqueeScroll 20s linear infinite;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    @keyframes marqueeScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    .balloon-row {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 15px;
+      animation: sway 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes sway {
+      0% {
+        transform: rotate(-2deg) translateY(0);
+      }
+
+      100% {
+        transform: rotate(2deg) translateY(-8px);
+      }
+    }
+
+    .balloon {
+      font-size: 3.2rem;
+      display: inline-block;
+      animation: bobBalloon 2.5s ease-in-out infinite alternate;
+    }
+
+    .balloon:nth-child(2) {
+      animation-duration: 2.1s;
+    }
+
+    .balloon:nth-child(3) {
+      animation-duration: 2.9s;
+    }
+
+    .balloon:nth-child(4) {
+      animation-duration: 1.8s;
+    }
+
+    .balloon:nth-child(5) {
+      animation-duration: 2.6s;
+    }
+
+    @keyframes bobBalloon {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .hero-name {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(4.5rem, 15vw, 8.5rem);
+      color: var(--rose-deep);
+      line-height: 0.9;
+      margin-bottom: 10px;
+      text-shadow: 3px 3px 0px var(--rose-light), 6px 6px 0px rgba(232, 82, 122, 0.1);
+      animation: namePop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes namePop {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
+      color: var(--text-dark);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 25px;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--rose), var(--lavender));
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 36px;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(232, 82, 122, 0.3);
+      letter-spacing: 0.08em;
+      animation: pulseGlow 2.5s infinite;
+      margin-bottom: 40px;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 24px rgba(232, 82, 122, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 8px 36px rgba(232, 82, 122, 0.55), 0 0 0 10px rgba(232, 82, 122, 0.1);
+      }
+    }
+
+    /* SCROLL / SWIPE SECTION FOR IMAGES */
+    .section-title {
+      font-family: "Great Vibes", cursive;
+      font-size: 3.5rem;
+      text-align: center;
+      color: var(--rose-deep);
+      margin: 40px 0 20px;
+    }
+
+    .gallery-container {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      padding: 20px 40px 30px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .gallery-container::-webkit-scrollbar {
+      display: none;
+      /* Safari/Chrome */
+    }
+
+    .gallery-card {
+      flex: 0 0 280px;
+      scroll-snap-align: center;
+      background: #fff;
+      border-radius: 24px;
+      border: 1.5px solid var(--rose-light);
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(232, 82, 122, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(232, 82, 122, 0.18);
+    }
+
+    .card-frame {
+      width: 100%;
+      height: 240px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 1px solid var(--rose-light);
+      position: relative;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-card:hover .card-img {
+      transform: scale(1.08);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #725b74;
+      line-height: 1.4;
+    }
+
+    /* INTERACTIVE CAKE */
+    .cake-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .cake-box {
+      position: relative;
+      width: 200px;
+      height: 220px;
+      margin: 0 auto 30px;
+    }
+
+    .cake-graphic {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 130px;
+      background: linear-gradient(to top, #c77b9b 0%, #e8527a 40%, #ffcbd7 40%, #ffcbd7 45%, #ffd700 45%, #ffd700 50%, #fff 50%, #fff 100%);
+      border-radius: 20px 20px 10px 10px;
+      box-shadow: 0 8px 25px rgba(232, 82, 122, 0.15);
+      border: 3px solid var(--text-dark);
+    }
+
+    .cake-dripping {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: #ffcbd7;
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* Candle design */
+    .candle-container {
+      position: absolute;
+      bottom: 125px;
+      width: 20px;
+      height: 60px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .candle-container.candle-1 {
+      left: 45px;
+    }
+
+    .candle-container.candle-2 {
+      left: 90px;
+    }
+
+    .candle-container.candle-3 {
+      left: 135px;
+    }
+
+    .candle-stick {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 50px;
+      background: repeating-linear-gradient(45deg, var(--lavender), var(--lavender) 5px, #fff 5px, #fff 10px);
+      border-radius: 5px 5px 0 0;
+      border: 2px solid var(--text-dark);
+    }
+
+    .candle-wick {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 8px;
+      background: #000;
+    }
+
+    .candle-flame {
+      position: absolute;
+      bottom: 54px;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+      width: 14px;
+      height: 22px;
+      background: radial-gradient(ellipse at bottom, #ffd700 0%, #ff3300 70%, #ff3300 100%);
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 15px #ffaa00;
+      animation: flameFlicker 0.6s infinite alternate;
+      transform-origin: bottom center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    @keyframes flameFlicker {
+      0% {
+        transform: translateX(-50%) scale(0.95) rotate(-3deg);
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1.1) rotate(3deg);
+      }
+    }
+
+    /* Smoke trail animation when candle goes out */
+    .smoke-particle {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .smoke-animate {
+      animation: smokeRise 1.5s cubic-bezier(0.08, 0.82, 0.17, 1) forwards;
+    }
+
+    @keyframes smokeRise {
+      0% {
+        opacity: 0.8;
+        transform: translateX(-50%) translateY(0) scale(0.4);
+        filter: blur(0px);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: translateX(-40%) translateY(-25px) scale(0.9);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-70%) translateY(-60px) scale(1.4);
+        filter: blur(4px);
+      }
+    }
+
+    .action-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: #fff;
+      font-family: "Quicksand", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 16px 45px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(232, 82, 122, 0.35);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      margin: 10px;
+    }
+
+    .action-btn:hover {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 15px 40px rgba(232, 82, 122, 0.5);
+    }
+
+    .action-btn:active {
+      transform: scale(0.97) translateY(0);
+    }
+
+    .action-btn.green-game-btn {
+      background: linear-gradient(135deg, #ff6b35, #e8527a);
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.35);
+    }
+
+    .action-btn.green-game-btn:hover {
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.5);
+    }
+
+    /* CARD WISHES GRID */
+    .wishes-container {
+      max-width: 900px;
+      margin: 40px auto 20px;
+      padding: 0 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .wish-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 30px rgba(232, 82, 122, 0.05);
+      border-top: 5px solid var(--rose);
+      text-align: left;
+      transition: transform 0.3s ease;
+    }
+
+    .wish-box:nth-child(2) {
+      border-top-color: var(--lavender);
+    }
+
+    .wish-box:nth-child(3) {
+      border-top-color: var(--gold);
+    }
+
+    .wish-box:nth-child(4) {
+      border-top-color: #7ec8a0;
+    }
+
+    .wish-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .wish-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .wish-box h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .wish-box p {
+      font-size: 0.95rem;
+      color: #654d68;
+      line-height: 1.6;
+    }
+
+    /* MESSAGE MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(74, 32, 64, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      background: #fff;
+      border-radius: 30px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      border: 3px solid var(--rose-light);
+      animation: modalZoom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalZoom {
+      from {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-emoji {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 15px;
+      animation: bobBalloon 1.5s ease-in-out infinite alternate;
+    }
+
+    .modal-title {
+      font-family: "Great Vibes", cursive;
+      font-size: 3.5rem;
+      color: var(--rose-deep);
+      margin-bottom: 25px;
+    }
+
+    .modal-message-item {
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 16px;
+      background: var(--cream);
+      border-left: 5px solid var(--rose);
+      text-align: left;
+    }
+
+    .modal-message-item:nth-child(2) {
+      border-left-color: var(--lavender);
+    }
+
+    .modal-message-item:nth-child(3) {
+      border-left-color: var(--gold);
+    }
+
+    .music-note {
+      position: fixed;
+      font-size: 1.8rem;
+      pointer-events: none;
+      z-index: 999;
+      animation: noteFly 3s ease-out forwards;
+    }
+
+    @keyframes noteFly {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), -220px) rotate(var(--dr)) scale(0.3);
+      }
+    }
+
+
+    /* 3. GAME SCREEN */
+    #game-page {
+      background: #0a0015;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    #game-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #game-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #090014;
+    }
+
+    /* Game Over & Game Win Screens Overlay */
+    .game-overlay-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 0, 20, 0.94);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25px;
+      z-index: 50;
+      display: none;
+      /* controlled by JS */
+    }
+
+    .game-overlay-title {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      color: #ff6b35;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
+    }
+
+    .game-overlay-sub {
+      color: #ffccaa;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 450px;
+      margin-bottom: 15px;
+    }
+
+    .crowned-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 15px;
+    }
+
+    .crown-sticker {
+      position: absolute;
+      top: -15px;
+      left: 35%;
+      transform: translateX(-50%) rotate(-20deg);
+      font-size: 2.2rem;
+      z-index: 5;
+      animation: bobBalloon 1.5s ease-in-out infinite alternate;
+    }
+
+    .winner-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 25px var(--gold);
+    }
+
+    #game-hud {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    .hud-box {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    #hud-hp {
+      color: #ff8fa3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND DECORATIONS -->
+  <div class="hearts-bg" id="heartsContainer"></div>
+  <div class="stars-bg" id="starsContainer"></div>
+
+  <audio id="angry-audio" src="./audio/dragon-studio-blast-405470.mp3"></audio>
+  <audio id="goback-audio" src="./audio/dragon-studio-blast.mp3"></audio>
+  <audio id="sinister-audio" src="./audio/universfield-sinister-laugh-140131.mp3"></audio>
+  <audio id="china-audio" src="./audio/china.mp3"></audio>
+
+
+  <!-- ==================== 1. LOCK SCREEN ==================== -->
+  <div id="lock-page" class="pg active">
+    <canvas id="lock-bg-canvas"></canvas>
+    <div class="lock-container">
+      <!-- Left side: Keypad and input display -->
+      <div class="lock-left">
+        <h3 class="lock-section-title" id="lock-title">Enter Passcode</h3>
+
+        <div class="passcode-boxes">
+          <div class="box" id="box-0"></div>
+          <div class="box" id="box-1"></div>
+          <div class="box" id="box-2"></div>
+          <div class="box" id="box-3"></div>
+        </div>
+
+        <div class="keypad-grid">
+          <button class="key-btn" onclick="pressKey('1')">1</button>
+          <button class="key-btn" onclick="pressKey('2')">2</button>
+          <button class="key-btn" onclick="pressKey('3')">3</button>
+          <button class="key-btn" onclick="pressKey('4')">4</button>
+          <button class="key-btn" onclick="pressKey('5')">5</button>
+          <button class="key-btn" onclick="pressKey('6')">6</button>
+          <button class="key-btn" onclick="pressKey('7')">7</button>
+          <button class="key-btn" onclick="pressKey('8')">8</button>
+          <button class="key-btn" onclick="pressKey('9')">9</button>
+          <button class="key-btn backspace-star" onclick="pressKey('clear')">*</button>
+          <button class="key-btn" onclick="pressKey('0')">0</button>
+          <button class="key-btn backspace-star" onclick="pressKey('back')">#</button>
+        </div>
+
+        <button class="lock-enter-btn" onclick="verifyPIN()">Enter</button>
+        <p class="hint-text" id="lock-hint">Hint: 01-08 (Your special day! 🎂)</p>
+      </div>
+
+      <!-- Right side: Polaroid image frame -->
+      <div class="lock-right">
+        <div class="polaroid-frame">
+          <span class="bow-sticker">🎀</span>
+          <div class="polaroid-photo-container">
+            <img class="polaroid-img"
+              src="./images/Screenshot_2026-06-03-13-37-19-70_da8e1b33c587c7c6dfcf439d19f6f0d3.jpg.jpeg"
+              alt="Birthday Girl">
+          </div>
+          <div class="polaroid-text">Happy Birthday!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== STORY PAGES ==================== -->
+  <div id="story-shared-bg"></div>
+
+  <div id="story-1-ask" class="story-page">
+    <h2 class="story-title">HEY!!</h2>
+    <h3 class="story-text">I made something for you<br>Do you want to see?</h3>
+    <img src="./images/Screenshot 2026-06-15 232245.png" class="story-img">
+    <div>
+      <button class="story-btn" onclick="goToStory(3)">Yes</button>
+      <button class="story-btn story-btn-outline" onclick="goToStory(2)">No</button>
+    </div>
+  </div>
+
+  <div id="story-2-angry" class="story-page">
+    <img src="./images/Screenshot 2026-06-15 233600.png" class="story-img">
+    <h2 class="story-title">HOW DARE YOU</h2>
+    <div>
+      <button class="story-btn" onclick="goToStory(1)">Go back</button>
+      <button class="story-btn story-btn-outline" onclick="goToStory(2.5)">No</button>
+    </div>
+  </div>
+
+  <div id="story-2-5-no" class="story-page">
+    <video id="dog-vid" src="./video/0f675a04943dbdfe5e6cfc7d90557462.mp4" class="story-img" loop playsinline></video>
+    <h2 class="story-title" style="font-size:2rem; padding: 0 10px;">AKKA iidhe na website neeku exit ledhu🤣🤣 </h2>
+    <button class="story-btn" onclick="goToStory(1, 'sinister')">Go back</button>
+  </div>
+
+  <div id="story-3-good" class="story-page">
+    <video src="./video/Recording 2026-06-15 235712.mp4" class="story-img" autoplay loop muted playsinline></video>
+    <h2 class="story-title" style="font-size:2.5rem">That's a good Gurlll 🌻</h2>
+    <button class="story-btn" onclick="goToStory(4)">Click</button>
+  </div>
+
+  <div id="story-4-cake" class="story-page">
+    <img src="./images/d04034ce37d3f7a2d14e0b252854c8e1.jpg" class="story-img">
+    <h2 class="story-title" style="font-size:2rem; margin-bottom: 5px;">Happy birthday akka 🩷</h2>
+    <button class="action-btn" style="background: #ff4d4d;"
+      onclick="document.getElementById('china-overlay').style.display='flex'">Click Here</button>
+    <br>
+    <button class="story-btn" onclick="goToStory(5)" style="margin-top: 15px;">Next</button>
+
+    <div id="china-overlay"
+      style="display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+      <div
+        style="background: #ffb6c1; padding: 25px; border-radius: 20px; text-align: center; max-width: 80%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <p class="story-text" style="font-size: 1.1rem; color: #3b2c3a; margin-bottom: 20px; font-weight: 600;">you are
+          my favourite notification sound (also the notification sound ) </p>
+        <audio id="china-audio-player" src="./audio/china.mp3" controls
+          style="margin-bottom: 20px; width: 100%;"></audio>
+        <br>
+        <button class="story-btn story-btn-outline" style="background: #fff; margin:0;"
+          onclick="document.getElementById('china-overlay').style.display='none'; document.getElementById('china-audio-player').pause();">Go
+          back</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="story-5-envelope" class="story-page">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-direction: row;">
+      <div class="envelope-box" onclick="goToStory(5.5)" style="margin-bottom: 0;">
+        <img src="./images/Screenshot_2026-06-16_004512-removebg-preview.png" alt="Closed Envelope"
+          style="width: 320px; height: auto; transform: rotate(-10deg);">
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 3rem; animation: floatX 2s ease-in-out infinite; color: var(--rose-deep);">&larr;</span>
+        <h2 class="story-title" style="font-size:2.5rem; margin: 0; padding: 0;">😁aada kanbaduthunna letter image ni
+          ala press cheyi aka </h2>
+      </div>
+    </div>
+  </div>
+
+  <div id="story-5-5-message" class="story-page" style="background-color: rgba(0,0,0,0.6);">
+    <div style="position: relative; display: inline-block;">
+      <img src="./images/Gold Geometric Woman Portrait Flyer.png" alt="Happy Birthday"
+        style="width: 100%; max-width: 320px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block;">
+      <div
+        style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); cursor: pointer; z-index: 10;"
+        onclick="document.getElementById('vid-overlay').style.display='flex'; document.getElementById('myvid').play();">
+        <span
+          style="font-size: 4rem; color: var(--rose-deep); animation: pulseGlow 2s infinite; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">&rarr;</span>
+      </div>
+    </div>
+    <button class="story-btn" onclick="finishStory()" style="margin-top: 20px;">Click here</button>
+
+    <div id="vid-overlay"
+      style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; flex-direction: column;">
+      <span style="position: absolute; top: 20px; right: 30px; font-size: 3rem; color: white; cursor: pointer;"
+        onclick="document.getElementById('vid-overlay').style.display='none'; document.getElementById('myvid').pause(); document.getElementById('myvid').currentTime = 0;">&times;</span>
+      <video id="myvid" controls
+        style="max-width: 90%; max-height: 80%; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2);">
+        <source src="./video/Happy Birthday Status .mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+
+
+
+  <!-- ==================== 3. GAME SCREEN ==================== -->
+  <div id="game-page" class="pg">
+    <div id="game-container">
+      <!-- Heads Up Display -->
+      <div id="game-hud">
+        <div class="hud-box" id="hud-score">💥 Score: 0</div>
+        <div class="hud-box" id="hud-hp">👿 Boss HP: 100%</div>
+      </div>
+
+      <canvas id="game-canvas"></canvas>
+
+      <!-- Overlay Game Start Screen -->
+      <div class="game-overlay-screen" id="game-start-screen" style="display: flex;">
+        <h2 class="game-overlay-title">Defeat this pig face monster</h2>
+        <p class="game-overlay-sub">
+          Eee thammudu ni spaceship loki oostuudu aka , nen ooka monster nannu andharu big monster anntaru nannu nuvvu
+          aapali , hehehehehehehhehehehehhehe
+        </p>
+        <div class="crowned-wrapper">
+          <img class="winner-photo"
+            src="./images/Screenshot_2026-06-03-13-37-19-70_da8e1b33c587c7c6dfcf439d19f6f0d3.jpg.jpeg"
+            alt="Player Ship Preview">
+        </div>
+        <button class="action-btn" onclick="runGamePlay()">⚔️ Fight! 🛡️</button>
+        <button class="action-btn" style="background: var(--lavender)" onclick="goBackToBirthday()">⬅️ Back</button>
+      </div>
+
+      <!-- Overlay Game Over Screen -->
+      <div class="game-overlay-screen" id="game-over-screen">
+        <h2 class="game-overlay-title" style="color: #ff3300;">Game Over!</h2>
+        <p class="game-overlay-sub">
+          The pigs got you! But don't worry, your brother is ready to fight again to make you happy!
+        </p>
+        <button class="action-btn" onclick="runGamePlay()">🎮 Try Again</button>
+        <button class="action-btn" style="background: var(--lavender)" onclick="goBackToBirthday()">⬅️ Back</button>
+      </div>
+
+      <!-- Overlay Game Win Screen -->
+      <div class="game-overlay-screen" id="game-win-screen">
+        <h2 class="game-overlay-title" style="color: var(--gold);">Congratulations!</h2>
+        <p class="game-overlay-sub" style="color: #fff;">
+          Abba super akka , nannu champav ga 😭<br><br>
+          congrats akka on killing this pig monster 😈
+        </p>
+        <div class="crowned-wrapper">
+          <span class="crown-sticker">👑</span>
+          <img class="winner-photo"
+            src="./images/Screenshot_2026-06-03-13-37-19-70_da8e1b33c587c7c6dfcf439d19f6f0d3.jpg.jpeg"
+            alt="Crowned Winner Photo">
+        </div>
+        <button class="action-btn" onclick="runGamePlay()">🎮 Play Again</button>
+        <button class="action-btn" style="background: var(--lavender)" onclick="goBackToBirthday()">🎂 Back to
+          Card</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== LOGIC AND SCRIPT ==================== -->
+  <script>
+    // ── AUDIO MANAGER (Web Audio API) ──
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playFartSound() {
+      try {
+        const ctx = getAudioContext(); if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(35, ctx.currentTime + 0.3);
+        osc.type = "sawtooth";
+
+        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.3);
+      } catch (e) { }
+    }
+
+    function playExplosionSound() {
+      try {
+        const ctx = getAudioContext(); if (!ctx) return;
+        const bufferSize = ctx.sampleRate * 0.4;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize * 7);
+        }
+        const src = ctx.createBufferSource();
+        src.buffer = buffer;
+        const gain = ctx.createGain();
+        gain.gain.value = 0.3;
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start();
+      } catch (e) { }
+    }
+
+    function playBlowingSound() {
+      try {
+        const ctx = getAudioContext(); if (!ctx) return;
+        const bufferSize = ctx.sampleRate * 0.5;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize * 5) * 0.6;
+        }
+        const src = ctx.createBufferSource();
+        src.buffer = buffer;
+        const gain = ctx.createGain();
+        gain.gain.value = 0.4;
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start();
+      } catch (e) { }
+    }
+
+    function playVictoryChime() {
+      try {
+        const ctx = getAudioContext(); if (!ctx) return;
+        const notes = [261.63, 329.63, 392.00, 523.25]; // C, E, G, C
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.12);
+          osc.type = "sine";
+
+          gain.gain.setValueAtTime(0.18, ctx.currentTime + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.12 + 0.3);
+
+          osc.start(ctx.currentTime + idx * 0.12);
+          osc.stop(ctx.currentTime + idx * 0.12 + 0.35);
+        });
+      } catch (e) { }
+    }
+
+
+    // ── BACKGROUND FLOATING DECORATIONS ──
+    const heartsContainer = document.getElementById('heartsContainer');
+    const heartEmojis = ['💖', '💕', '🌸', '✨', '🎈'];
+    function spawnHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (4 + Math.random() * 5) + 's';
+      h.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      heartsContainer.appendChild(h);
+      setTimeout(() => h.remove(), 9000);
+    }
+    setInterval(spawnHeart, 1200);
+
+    const starsContainer = document.getElementById('starsContainer');
+    for (let i = 0; i < 45; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.width = s.style.height = (2 + Math.random() * 3) + 'px';
+      s.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      s.style.animationDelay = Math.random() * 2 + 's';
+      starsContainer.appendChild(s);
+    }
+
+
+    // ── PASSCODE LOGIC ──
+    let inputPIN = '';
+    const CORRECT_PIN = '0108'; // Update this if needed (e.g. 0306)
+
+    function pressKey(key) {
+      if (key === 'clear') {
+        inputPIN = '';
+      } else if (key === 'back') {
+        inputPIN = inputPIN.slice(0, -1);
+      } else {
+        if (inputPIN.length < 4) {
+          inputPIN += key;
+        }
+      }
+      updateDots();
+    }
+
+    function verifyPIN() {
+      const hint = document.getElementById('lock-hint');
+      if (inputPIN === CORRECT_PIN || inputPIN === '0306') {
+        getAudioContext(); // Initialize context on user interaction
+        hint.textContent = "Unlocking...";
+        hint.classList.remove('error');
+        hint.style.color = '#7ec8a0';
+
+        setTimeout(() => {
+          document.getElementById('story-shared-bg').classList.add('active');
+          document.getElementById('story-1-ask').classList.add('active');
+          document.getElementById('lock-page').classList.add('unlocking');
+
+          setTimeout(() => {
+            document.getElementById('lock-page').classList.remove('active');
+            document.getElementById('lock-page').classList.remove('unlocking');
+          }, 800);
+        }, 500);
+      } else {
+        hint.textContent = "Incorrect Passcode. Try again!";
+        hint.classList.add('error');
+        inputPIN = '';
+        updateDots();
+        setTimeout(() => hint.classList.remove('error'), 500);
+      }
+    }
+
+    function hideAllStoryPages() {
+      const pages = document.querySelectorAll('.story-page');
+      pages.forEach(p => p.classList.remove('active'));
+      var dogVid = document.getElementById('dog-vid');
+      if (dogVid) dogVid.pause();
+      var chinaAudio = document.getElementById('china-audio');
+      if (chinaAudio) chinaAudio.pause();
+    }
+
+    function goToStory(num, audioType) {
+      hideAllStoryPages();
+      if (num === 1) {
+        document.getElementById('story-1-ask').classList.add('active');
+        if (audioType === 'sinister') {
+          var sinAudio = document.getElementById('sinister-audio');
+          if (sinAudio) {
+            sinAudio.currentTime = 0;
+            sinAudio.play().catch(e => console.log(e));
+          }
+        } else {
+          document.getElementById('goback-audio').currentTime = 0;
+          document.getElementById('goback-audio').play().catch(e => console.log(e));
+        }
+      }
+      if (num === 2) {
+        document.getElementById('story-2-angry').classList.add('active');
+        document.getElementById('angry-audio').currentTime = 0;
+        document.getElementById('angry-audio').play().catch(e => console.log(e));
+      }
+      if (num === 2.5) {
+        document.getElementById('story-2-5-no').classList.add('active');
+        var dogVid = document.getElementById('dog-vid');
+        dogVid.currentTime = 0;
+        dogVid.play().catch(e => console.log(e));
+      }
+      if (num === 3) document.getElementById('story-3-good').classList.add('active');
+      if (num === 4) {
+        document.getElementById('story-4-cake').classList.add('active');
+      }
+      if (num === 5) document.getElementById('story-5-envelope').classList.add('active');
+      if (num === 5.5) document.getElementById('story-5-5-message').classList.add('active');
+      if (num === 6) document.getElementById('story-6-polaroids').classList.add('active');
+      if (num === 7) document.getElementById('story-7-gift').classList.add('active');
+      if (num === 7.5) document.getElementById('story-7-5-hug').classList.add('active');
+    }
+
+    function finishStory() {
+      hideAllStoryPages();
+      document.getElementById('story-shared-bg').classList.remove('active');
+      goToGamePage();
+    }
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) {
+        const box = document.getElementById(`box-${i}`);
+        if (i < inputPIN.length) {
+          box.classList.add('filled');
+          box.textContent = "★";
+        } else {
+          box.classList.remove('filled');
+          box.textContent = "";
+        }
+      }
+    }
+
+
+    // ── BIRTHDAY PAGE LOGIC (CANDLES & MODAL) ──
+    let candlesBlown = 0;
+
+    function triggerBlowCandles() {
+      playBlowingSound();
+      const btn = document.getElementById('blow-candles-btn');
+      btn.style.display = 'none';
+
+      // Put out candles in sequence
+      for (let i = 1; i <= 3; i++) {
+        setTimeout(() => {
+          const flame = document.getElementById(`flame-${i}`);
+          const smoke = document.getElementById(`smoke-${i}`);
+
+          if (flame) flame.style.opacity = '0';
+          if (smoke) smoke.classList.add('smoke-animate');
+
+          candlesBlown++;
+          if (candlesBlown === 3) {
+            triggerConfettiCelebration();
+          }
+        }, i * 350);
+      }
+    }
+
+    function triggerConfettiCelebration() {
+      // Fire confetti bursts
+      let count = 0;
+      const t = setInterval(() => {
+        fireConfettiBurst();
+        count++;
+        if (count >= 5) clearInterval(t);
+      }, 400);
+
+      setTimeout(() => {
+        goToStory(5);
+      }, 900);
+    }
+
+    function spawnMusicNotesDecoration() {
+      const notes = ['🎵', '🎶', '🎸', '🌟', '✨', '💕', '🎉'];
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const n = document.createElement('div');
+          n.className = 'music-note';
+          n.textContent = notes[Math.floor(Math.random() * notes.length)];
+          n.style.left = (15 + Math.random() * 70) + 'vw';
+          n.style.bottom = (10 + Math.random() * 40) + 'vh';
+          n.style.setProperty('--dx', (Math.random() * 240 - 120) + 'px');
+          n.style.setProperty('--dr', (Math.random() * 90 - 45) + 'deg');
+          document.body.appendChild(n);
+          setTimeout(() => n.remove(), 2900);
+        }, i * 140);
+      }
+    }
+
+    function closeSurpriseModal() {
+      document.getElementById('surpriseModal').classList.remove('active');
+      // Reveal the Play Game Button
+      document.getElementById('start-game-btn').style.display = 'inline-block';
+    }
+
+
+    // ── LIGHTWEIGHT INTERNAL CONFETTI SYSTEM ──
+    const canvasConfettiList = [];
+    let confettiTimer = null;
+    let confettiCanvas = null;
+    let confettiCtx = null;
+
+    function getConfettiCanvas() {
+      if (!confettiCanvas) {
+        confettiCanvas = document.createElement('canvas');
+        confettiCanvas.style.position = 'fixed';
+        confettiCanvas.style.top = '0';
+        confettiCanvas.style.left = '0';
+        confettiCanvas.style.width = '100vw';
+        confettiCanvas.style.height = '100vh';
+        confettiCanvas.style.pointerEvents = 'none';
+        confettiCanvas.style.zIndex = '999';
+        document.body.appendChild(confettiCanvas);
+        confettiCtx = confettiCanvas.getContext('2d');
+        window.addEventListener('resize', () => {
+          confettiCanvas.width = window.innerWidth;
+          confettiCanvas.height = window.innerHeight;
+        });
+      }
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      return confettiCanvas;
+    }
+
+    function fireConfettiBurst() {
+      getConfettiCanvas();
+      const colors = ['#e8527a', '#f5c842', '#c9a0dc', '#7ec8a0', '#ff8fab', '#5bc0be'];
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+
+      for (let i = 0; i < 70; i++) {
+        canvasConfettiList.push({
+          x: Math.random() * window.innerWidth,
+          y: -20,
+          w: 6 + Math.random() * 6,
+          h: 8 + Math.random() * 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: -3 + Math.random() * 6,
+          vy: 2 + Math.random() * 6,
+          rotation: Math.random() * 360,
+          rotationSpeed: -3 + Math.random() * 6
+        });
+      }
+
+      if (!confettiTimer) {
+        animateConfetti();
+      }
+    }
+
+    function animateConfetti() {
+      if (canvasConfettiList.length === 0) {
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiTimer = null;
+        return;
+      }
+
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      for (let i = canvasConfettiList.length - 1; i >= 0; i--) {
+        const c = canvasConfettiList[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.rotation += c.rotationSpeed;
+
+        confettiCtx.save();
+        confettiCtx.translate(c.x, c.y);
+        confettiCtx.rotate(c.rotation * Math.PI / 180);
+        confettiCtx.fillStyle = c.color;
+        confettiCtx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+        confettiCtx.restore();
+
+        if (c.y > window.innerHeight + 20) {
+          canvasConfettiList.splice(i, 1);
+        }
+      }
+
+      confettiTimer = requestAnimationFrame(animateConfetti);
+    }
+
+
+    // ── 3. MINI GAME LOGIC (CANVAS-BASED SPACE SHOOTER) ──
+    const canvasEl = document.getElementById('game-canvas');
+    const ctx = canvasEl.getContext('2d');
+    let gameRunning = false;
+    let animId = null;
+    let W = 400;
+    let H = 600;
+
+    let score = 0;
+    let kills = 0;
+    let playerObj = { x: 200, y: 500, w: 60, h: 60 };
+    let bulletsList = [];
+    let enemiesList = [];
+    let bossObj = null;
+    let particlesList = [];
+    let textAlerts = [];
+    let starfield = [];
+
+    // Load ship and enemy image
+    const shipImg = new Image();
+    shipImg.src = "./images/Screenshot_2026-06-03-13-37-19-70_da8e1b33c587c7c6dfcf439d19f6f0d3.jpg.jpeg";
+    const enemyImg = new Image();
+    enemyImg.src = "./images/Screenshot_2026-06-03-12-25-00-61_6012fa4d4ddec268fc5c7112cbb265e7.jpg.jpeg";
+
+    function goToGamePage() {
+      document.getElementById('game-page').classList.add('active');
+      document.getElementById('game-start-screen').style.display = 'flex';
+      document.getElementById('game-over-screen').style.display = 'none';
+      document.getElementById('game-win-screen').style.display = 'none';
+      initGameEngine();
+    }
+
+    function goBackToBirthday() {
+      location.reload();
+    }
+
+    function initGameEngine() {
+      const container = document.getElementById('game-container');
+      W = container.clientWidth;
+      H = window.innerHeight;
+      canvasEl.width = W;
+      canvasEl.height = H;
+
+      playerObj.x = W / 2;
+      playerObj.y = H - 80;
+
+      // Make starfield
+      starfield = [];
+      for (let i = 0; i < 50; i++) {
+        starfield.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: 0.5 + Math.random() * 1.5,
+          speed: 1 + Math.random() * 2
+        });
+      }
+
+      // Input listeners
+      canvasEl.addEventListener('mousemove', handleMove);
+      canvasEl.addEventListener('mousedown', handleMouseDown);
+      canvasEl.addEventListener('touchmove', handleTouch, { passive: false });
+      canvasEl.addEventListener('touchstart', handleTouch, { passive: false });
+    }
+
+    function stopGameEngine() {
+      gameRunning = false;
+      if (animId) cancelAnimationFrame(animId);
+      canvasEl.removeEventListener('mousemove', handleMove);
+      canvasEl.removeEventListener('mousedown', handleMouseDown);
+      canvasEl.removeEventListener('touchmove', handleTouch);
+      canvasEl.removeEventListener('touchstart', handleTouch);
+    }
+
+    function handleMove(e) {
+      const r = canvasEl.getBoundingClientRect();
+      playerObj.x = e.clientX - r.left;
+      playerObj.x = Math.max(playerObj.w / 2, Math.min(W - playerObj.w / 2, playerObj.x));
+    }
+
+    function handleTouch(e) {
+      e.preventDefault();
+      const r = canvasEl.getBoundingClientRect();
+      const t = e.touches[0];
+      playerObj.x = t.clientX - r.left;
+      playerObj.x = Math.max(playerObj.w / 2, Math.min(W - playerObj.w / 2, playerObj.x));
+      firePlayerBullet();
+    }
+
+    function handleMouseDown(e) {
+      firePlayerBullet();
+    }
+
+    function firePlayerBullet() {
+      if (!gameRunning) return;
+      const now = Date.now();
+      if (now - lastShotTime > 100) {
+        lastShotTime = now;
+        bulletsList.push({
+          x: playerObj.x,
+          y: playerObj.y - 30,
+          vy: -14,
+          emoji: Math.random() > 0.5 ? '❤️' : '✨'
+        });
+      }
+    }
+
+    function runGamePlay() {
+      // Hide screens
+      document.getElementById('game-start-screen').style.display = 'none';
+      document.getElementById('game-over-screen').style.display = 'none';
+      document.getElementById('game-win-screen').style.display = 'none';
+
+      // Reset
+      score = 0;
+      kills = 0;
+      bulletsList = [];
+      enemiesList = [];
+      particlesList = [];
+      textAlerts = [];
+      bossObj = null;
+      document.getElementById('hud-score').textContent = "💥 Score: 0";
+      document.getElementById('hud-hp').textContent = "👾 Defeat 25 Enemies";
+
+      gameRunning = true;
+      lastShotTime = 0;
+      spawnTimer = 0;
+
+      if (animId) cancelAnimationFrame(animId);
+      gameLoop();
+    }
+
+    let lastShotTime = 0;
+    let spawnTimer = 0;
+
+    function gameLoop() {
+      if (!gameRunning) return;
+
+      updateGamePhysics();
+      renderGameScreen();
+
+      animId = requestAnimationFrame(gameLoop);
+    }
+
+    function updateGamePhysics() {
+
+      // Move Bullets
+      for (let i = bulletsList.length - 1; i >= 0; i--) {
+        bulletsList[i].y += bulletsList[i].vy;
+        if (bulletsList[i].y < -20) {
+          bulletsList.splice(i, 1);
+        }
+      }
+
+      // Spawn normal pig enemies
+      if (!bossObj) {
+        spawnTimer++;
+        if (spawnTimer > 40) {
+          spawnTimer = 0;
+          enemiesList.push({
+            x: 30 + Math.random() * (W - 60),
+            y: -30,
+            vy: 2 + Math.random() * 2.5,
+            w: 40,
+            h: 40,
+            emoji: '🐷'
+          });
+        }
+      }
+
+      // Move Enemies
+      for (let i = enemiesList.length - 1; i >= 0; i--) {
+        const e = enemiesList[i];
+        e.y += e.vy;
+
+        // Check crash with player
+        const dx = e.x - playerObj.x;
+        const dy = e.y - playerObj.y;
+        if (Math.sqrt(dx * dx + dy * dy) < 40) {
+          playFartSound();
+          triggerGameOver();
+          return;
+        }
+
+        if (e.y > H + 40) {
+          enemiesList.splice(i, 1);
+          continue;
+        }
+
+        // Check bullet hit
+        for (let j = bulletsList.length - 1; j >= 0; j--) {
+          const b = bulletsList[j];
+          const bdx = b.x - e.x;
+          const bdy = b.y - e.y;
+          if (Math.sqrt(bdx * bdx + bdy * bdy) < 26) {
+            // Kill enemy
+            spawnExplosion(e.x, e.y);
+            playFartSound();
+            bulletsList.splice(j, 1);
+            enemiesList.splice(i, 1);
+
+            score += 10;
+            kills++;
+            document.getElementById('hud-score').textContent = `💥 Score: ${score}`;
+
+            if (kills < 25) {
+              document.getElementById('hud-hp').textContent = `👾 Left: ${25 - kills}`;
+            }
+
+            // Spawn boss at 25 kills
+            if (kills === 25 && !bossObj) {
+              spawnBossFight();
+            }
+            break;
+          }
+        }
+      }
+
+      // Boss physics
+      if (bossObj) {
+        bossObj.x += bossObj.vx;
+        if (bossObj.x < 50 || bossObj.x > W - 50) {
+          bossObj.vx *= -1;
+        }
+
+        // Bullet hitting boss
+        for (let j = bulletsList.length - 1; j >= 0; j--) {
+          const b = bulletsList[j];
+          if (b.vy < 0) { // player bullet
+            const bdx = b.x - bossObj.x;
+            const bdy = b.y - bossObj.y;
+            if (Math.abs(bdx) < 40 && Math.abs(bdy) < 30) {
+              bulletsList.splice(j, 1);
+              bossObj.hp -= 10; // 10 hits to kill
+              score += 20;
+              document.getElementById('hud-score').textContent = `💥 Score: ${score}`;
+
+              const pct = Math.max(0, Math.ceil((bossObj.hp / 100) * 100));
+              document.getElementById('hud-hp').textContent = `👿 Boss HP: ${pct}%`;
+              playExplosionSound();
+
+              if (bossObj.hp <= 0) {
+                triggerGameWin();
+                return;
+              }
+            }
+          } else { // boss bullet hitting player
+            const bdx = b.x - playerObj.x;
+            const bdy = b.y - playerObj.y;
+            if (Math.sqrt(bdx * bdx + bdy * bdy) < 30) {
+              bulletsList.splice(j, 1);
+              playFartSound();
+              triggerGameOver();
+              return;
+            }
+          }
+        }
+      }
+
+      // Particles physics
+      for (let i = particlesList.length - 1; i >= 0; i--) {
+        const p = particlesList[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+        if (p.life <= 0) {
+          particlesList.splice(i, 1);
+        }
+      }
+
+      // Float texts physics
+      for (let i = textAlerts.length - 1; i >= 0; i--) {
+        const t = textAlerts[i];
+        t.y += t.vy;
+        t.life--;
+        if (t.life <= 0) {
+          textAlerts.splice(i, 1);
+        }
+      }
+    }
+
+    function spawnBossFight() {
+      bossObj = {
+        x: W / 2,
+        y: 110,
+        vx: 4.5,
+        hp: 100,
+        attackTimer: 0
+      };
+      document.getElementById('hud-hp').textContent = "👿 Boss HP: 100%";
+      textAlerts.push({
+        x: W / 2,
+        y: H / 2,
+        text: "BOSS APPEARS!",
+        vy: -0.5,
+        life: 90,
+        color: '#ff3300',
+        size: '22px'
+      });
+    }
+
+    function spawnExplosion(x, y) {
+      const emojis = ['💥', '😂', '💨', '🐷', '❤️', '✨'];
+      const textTags = ['💨 FART!', '🐷 OINK!', '🤣 LOL!', '✨ SHINE!'];
+
+      // Spawn text
+      textAlerts.push({
+        x: x,
+        y: y - 10,
+        text: textTags[Math.floor(Math.random() * textTags.length)],
+        vy: -1,
+        life: 50,
+        color: '#ffea00',
+        size: '16px'
+      });
+
+      // Spawn particles
+      for (let i = 0; i < 8; i++) {
+        particlesList.push({
+          x: x,
+          y: y,
+          vx: -3 + Math.random() * 6,
+          vy: -3 + Math.random() * 6,
+          emoji: emojis[Math.floor(Math.random() * emojis.length)],
+          life: 30 + Math.random() * 20
+        });
+      }
+    }
+
+    function triggerGameOver() {
+      gameRunning = false;
+      document.getElementById('game-over-screen').style.display = 'flex';
+    }
+
+    function triggerGameWin() {
+      gameRunning = false;
+      document.getElementById('game-win-screen').style.display = 'flex';
+      playVictoryChime();
+
+      // Confetti burst for victory
+      let count = 0;
+      const t = setInterval(() => {
+        fireConfettiBurst();
+        count++;
+        if (count >= 6) clearInterval(t);
+      }, 350);
+    }
+
+    function renderGameScreen() {
+      ctx.fillStyle = '#0a0015';
+      ctx.fillRect(0, 0, W, H);
+
+      // Starfield background
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      for (const s of starfield) {
+        s.y += s.speed;
+        if (s.y > H) {
+          s.y = -5;
+          s.x = Math.random() * W;
+        }
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw bullets
+      ctx.font = '20px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      for (const b of bulletsList) {
+        ctx.fillText(b.emoji, b.x, b.y);
+      }
+
+      // Draw enemies
+      for (const e of enemiesList) {
+        if (enemyImg.complete) {
+          ctx.drawImage(enemyImg, e.x - 20, e.y - 20, 40, 40);
+        } else {
+          ctx.fillText(e.emoji, e.x, e.y);
+        }
+      }
+
+      // Draw boss
+      if (bossObj) {
+        ctx.save();
+        ctx.translate(bossObj.x, bossObj.y);
+        if (enemyImg.complete) {
+          ctx.drawImage(enemyImg, -30, -30, 60, 60);
+        }
+        ctx.font = '30px serif';
+        ctx.fillText('👑', 0, -50); // Boss crown
+        ctx.restore();
+      }
+
+      // Draw particles
+      for (const p of particlesList) {
+        ctx.save();
+        ctx.globalAlpha = p.life / 50;
+        ctx.font = '16px serif';
+        ctx.fillText(p.emoji, p.x, p.y);
+        ctx.restore();
+      }
+
+      // Draw text Alerts
+      ctx.textAlign = 'center';
+      for (const t of textAlerts) {
+        ctx.save();
+        ctx.globalAlpha = t.life / 60;
+        ctx.font = `bold ${t.size || '16px'} Quicksand, sans-serif`;
+        ctx.fillStyle = t.color || '#fff';
+        ctx.fillText(t.text, t.x, t.y);
+        ctx.restore();
+      }
+
+      // Draw player ship (brother's image cropped into rocket)
+      ctx.save();
+      ctx.translate(playerObj.x, playerObj.y);
+
+      // Glow thrust flame
+      ctx.fillStyle = '#ff6b35';
+      ctx.beginPath();
+      ctx.moveTo(-10, 20);
+      ctx.lineTo(0, 35 + Math.random() * 8);
+      ctx.lineTo(10, 20);
+      ctx.closePath();
+      ctx.fill();
+
+      // Wing graphics
+      ctx.fillStyle = '#e8527a';
+      ctx.beginPath();
+      ctx.moveTo(-20, 0);
+      ctx.lineTo(-35, 18);
+      ctx.lineTo(-20, 10);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(20, 0);
+      ctx.lineTo(35, 18);
+      ctx.lineTo(20, 10);
+      ctx.closePath();
+      ctx.fill();
+
+      // Crop image inside circle
+      ctx.beginPath();
+      ctx.arc(0, 0, 25, 0, Math.PI * 2);
+      ctx.clip();
+
+      try {
+        ctx.drawImage(shipImg, -25, -25, 50, 50);
+      } catch (err) {
+        // Fallback drawing if image fails to load
+        ctx.fillStyle = '#ff8fa3';
+        ctx.fill();
+      }
+
+      // Circular border glow
+      ctx.strokeStyle = '#ffccaa';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, 0, 25, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // ── LOCK SCREEN BACKGROUND ANIMATION (BALLOONS & FIREWORKS) ──
+    const lockBgCanvas = document.getElementById('lock-bg-canvas');
+    const lockBgCtx = lockBgCanvas.getContext('2d');
+    let lockAnimFrameId = null;
+
+    function resizeLockCanvas() {
+      lockBgCanvas.width = window.innerWidth;
+      lockBgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeLockCanvas);
+    resizeLockCanvas();
+
+    class Balloon {
+      constructor() {
+        this.reset();
+        this.y = Math.random() * window.innerHeight;
+      }
+      reset() {
+        this.w = 20 + Math.random() * 12;
+        this.h = this.w * 1.25;
+        this.x = Math.random() * window.innerWidth;
+        this.y = window.innerHeight + 50 + Math.random() * 100;
+        this.speed = 0.8 + Math.random() * 1.2;
+        this.wobbleSpeed = 0.01 + Math.random() * 0.02;
+        this.wobbleAmount = 8 + Math.random() * 10;
+        this.wobbleAngle = Math.random() * Math.PI * 2;
+        const colors = [
+          { main: '#ff8fab', light: '#ffc2d1' }, // Pink
+          { main: '#e8527a', light: '#f9a8bd' }, // Deep Rose
+          { main: '#c9a0dc', light: '#e8d7f1' }, // Lavender
+          { main: '#f5c842', light: '#fdf0cd' }, // Gold/Yellow
+          { main: '#5bc0be', light: '#c5e8e7' }, // Turquoise
+          { main: '#ff6b35', light: '#ffccb7' }  // Orange
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.y -= this.speed;
+        this.wobbleAngle += this.wobbleSpeed;
+        if (this.y < -100) {
+          this.reset();
+        }
+      }
+      draw(ctx) {
+        const xOffset = Math.sin(this.wobbleAngle) * this.wobbleAmount;
+        const bx = this.x + xOffset;
+        const by = this.y;
+
+        // Draw string
+        ctx.beginPath();
+        ctx.moveTo(bx, by + this.h / 2);
+        ctx.bezierCurveTo(bx - 8, by + this.h + 15, bx + 8, by + this.h + 30, bx, by + this.h + 45);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Draw balloon body
+        ctx.beginPath();
+        ctx.ellipse(bx, by, this.w / 2, this.h / 2, 0, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(bx - this.w / 6, by - this.h / 6, this.w / 10, bx, by, this.w / 2);
+        grad.addColorStop(0, this.color.light);
+        grad.addColorStop(1, this.color.main);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Draw knot
+        ctx.beginPath();
+        ctx.moveTo(bx, by + this.h / 2);
+        ctx.lineTo(bx - 4, by + this.h / 2 + 5);
+        ctx.lineTo(bx + 4, by + this.h / 2 + 5);
+        ctx.closePath();
+        ctx.fillStyle = this.color.main;
+        ctx.fill();
+      }
+    }
+
+    class FireworkParticle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 1 + Math.random() * 4;
+        this.vx = Math.cos(angle) * velocity;
+        this.vy = Math.sin(angle) * velocity;
+        this.alpha = 1;
+        this.decay = 0.015 + Math.random() * 0.02;
+        this.gravity = 0.05;
+      }
+      update() {
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 1.5 + Math.random() * 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class Firework {
+      constructor() {
+        this.reset();
+        this.y = Math.random() * window.innerHeight;
+      }
+      reset() {
+        this.x = 80 + Math.random() * (window.innerWidth - 160);
+        this.y = window.innerHeight;
+        this.targetY = 80 + Math.random() * (window.innerHeight / 2);
+        this.vy = -6 - Math.random() * 5;
+        this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        this.particles = [];
+        this.exploded = false;
+      }
+      update() {
+        if (!this.exploded) {
+          this.y += this.vy;
+          if (this.vy < 0) this.vy += 0.06;
+          if (this.y <= this.targetY || this.vy >= -1) {
+            this.explode();
+          }
+        } else {
+          for (let i = this.particles.length - 1; i >= 0; i--) {
+            this.particles[i].update();
+            if (this.particles[i].alpha <= 0) {
+              this.particles.splice(i, 1);
+            }
+          }
+          if (this.particles.length === 0) {
+            this.reset();
+          }
+        }
+      }
+      explode() {
+        this.exploded = true;
+        const pCount = 30 + Math.floor(Math.random() * 20);
+        for (let i = 0; i < pCount; i++) {
+          this.particles.push(new FireworkParticle(this.x, this.y, this.color));
+        }
+      }
+      draw(ctx) {
+        if (!this.exploded) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffeedd';
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = '#ffeedd';
+          ctx.fill();
+          ctx.restore();
+        } else {
+          for (const p of this.particles) {
+            p.draw(ctx);
+          }
+        }
+      }
+    }
+
+    const lockBalloons = Array.from({ length: 6 }, () => new Balloon());
+    const lockFireworks = Array.from({ length: 2 }, () => new Firework());
+
+    function animateLockBg() {
+      if (!document.getElementById('lock-page').classList.contains('active')) {
+        lockAnimFrameId = null;
+        return;
+      }
+      lockBgCtx.clearRect(0, 0, lockBgCanvas.width, lockBgCanvas.height);
+
+      for (const b of lockBalloons) {
+        b.update();
+        b.draw(lockBgCtx);
+      }
+
+      for (const fw of lockFireworks) {
+        fw.update();
+        fw.draw(lockBgCtx);
+      }
+
+      lockAnimFrameId = requestAnimationFrame(animateLockBg);
+    }
+
+    animateLockBg();
+  </script>
+</body>
+
+</html>
